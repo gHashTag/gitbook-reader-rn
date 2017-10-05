@@ -15,36 +15,36 @@ String.prototype.replaceAll = function(search, replacement) {
 Navigation.startTabBasedApp({
   tabs: [
     {
-      label: 'Explore',
+      label: 'Обзор',
       screen: 'app.Home', // this is a registered name for a screen
       icon: require('./img/book.png'),
       selectedIcon: require('./img/book.png'), // iOS only
-      title: 'Explore',
+      title: 'Обзор',
     },
     {
-      label: 'Search',
+      label: 'Поиск',
       screen: 'app.Search', // this is a registered name for a screen
       icon: require('./img/search.png'),
       selectedIcon: require('./img/search.png'), // iOS only
-      title: 'Search',
+      title: 'Поиск',
     },
     {
-      label: 'Download',
+      label: 'Скачать',
       screen: 'app.Download',
       icon: require('./img/download.png'),
       selectedIcon: require('./img/download.png'), // iOS only
-      title: 'Download',
+      title: 'Скачать',
     },
     {
-      label: 'More',
+      label: 'Донейшн',
       screen: 'app.More',
       icon: require('./img/more.png'),
       selectedIcon: require('./img/more.png'), // iOS only
-      title: 'More',
+      title: 'Донейшн',
     },
   ],
   appStyle: {
     tabBarSelectedButtonColor: '#3F51B5', // change the color of the selected tab icon and text (only selected)
     forceTitlesDisplay: true, // Android only. If true - Show all bottom tab labels. If false - only the selected tab's label is visible.
   },
-});
+})

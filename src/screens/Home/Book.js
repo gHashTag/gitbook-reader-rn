@@ -27,7 +27,7 @@ export default class NewsCard extends React.PureComponent {
             {this.props.description === '' ? 'No description for now' : this.props.description}
           </Text>
 
-          <Text>Last updated {moment(this.props.dates.build).fromNow()}</Text>
+          <Text>Обновлено {moment(this.props.dates.build).fromNow()}</Text>
 
           <View style={styles.infoWrapper}>
             <View style={styles.label}>

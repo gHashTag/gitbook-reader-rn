@@ -20,7 +20,13 @@ exports.get = function get(api, params) {
 };
 
 export function getAllBooks(page) {
-  return fetch(`https://api.gitbook.com/books/all?limit=10&page=${page}`).then(res => res.json());
+    var DEMO_TOKEN = 'h3640csd5noubee278w04twco20u0gdgsxm39ybou93r2a4luyqx35q3a1n43v4r'
+    return fetch(`https://api.gitbook.com/books/?limit=10&page=${page}`, {
+      method: "GET",
+      headers: {
+        'Authorization': 'Bearer ' + DEMO_TOKEN
+      }
+    }).then(res => res.json());
 }
 
 export function getBook(id) {
