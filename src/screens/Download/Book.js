@@ -1,28 +1,28 @@
-import React from 'react';
-import { Image, View, Text, StyleSheet, TouchableHighlight } from 'react-native';
+import React from 'react'
+import { Image, View, Text, StyleSheet, TouchableHighlight } from 'react-native'
 
-import moment from 'moment';
-import Interactable from 'react-native-interactable';
+import moment from 'moment'
+import Interactable from 'react-native-interactable'
 
-import { px2dp, SCREEN_WIDTH } from '../../utils';
-import ImageWithPlaceHolder from '../../components/ImageWithPlaceHolder';
-import RowWithActions from '../../components/RowWithActions';
+import { px2dp, SCREEN_WIDTH } from '../../utils'
+import ImageWithPlaceHolder from '../../components/ImageWithPlaceHolder'
+import RowWithActions from '../../components/RowWithActions'
 
 export default class NewsCard extends React.PureComponent {
   _showSize = size => {
     if (size > 1000) {
-      const inKb = size / 1000;
+      const inKb = size / 1000
 
       if (inKb > 1000) {
-        const inMb = inKb / 1000;
-        return `${inMb.toFixed(2)} MB`;
+        const inMb = inKb / 1000
+        return `${inMb.toFixed(2)} MB`
       }
 
-      return `${inKb.toFixed(2)} kB`;
+      return `${inKb.toFixed(2)} kB`
     }
 
-    return `${size} bytes`;
-  };
+    return `${size} bytes`
+  }
 
   render() {
     return (
@@ -48,7 +48,7 @@ export default class NewsCard extends React.PureComponent {
           </View>
         </TouchableHighlight>
       </RowWithActions>
-    );
+    )
   }
 }
 
@@ -92,14 +92,20 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 18,
     color: '#000',
+    fontFamily: 'AppleSDGothicNeo-Light',
+    fontWeight: '100'
   },
 
   desc: {
     fontSize: 16,
+    fontFamily: 'AppleSDGothicNeo-Light',
+    fontWeight: '100'
   },
 
   time: {
     fontSize: 16,
     color: '#8e8e8e',
+    fontFamily: 'AppleSDGothicNeo-Light',
+    fontWeight: '100'
   },
-});
+})

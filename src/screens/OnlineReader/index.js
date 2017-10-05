@@ -1,5 +1,5 @@
-import React from 'react';
-import { View, Text, StyleSheet, WebView, Linking, ToastAndroid } from 'react-native';
+import React from 'react'
+import { View, Text, StyleSheet, WebView, Linking, ToastAndroid } from 'react-native'
 
 export default class Reader extends React.PureComponent {
   // static navigatorButtons = {
@@ -26,18 +26,18 @@ export default class Reader extends React.PureComponent {
   //       buttonFontWeight: '600', // Set font weight for the button (can also be used in setButtons function to set different button style programatically)
   //     },
   //   ],
-  // };
+  // }
 
   static navigatorStyle = {
     tabBarHidden: true,
     navBarHideOnScroll: true,
     statusBarColor: '#3F51B5',
-  };
+  }
 
   constructor(props) {
-    super(props);
+    super(props)
     // if you want to listen on navigator events, set this up
-    this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
+    this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this))
   }
 
   onNavigatorEvent(event) {
@@ -46,16 +46,16 @@ export default class Reader extends React.PureComponent {
       // this is the event type for button presses
       if (event.id == 'browser') {
         // this is the same id field from the static navigatorButtons definition
-        Linking.openURL(this.props.url);
+        Linking.openURL(this.props.url)
       }
 
       if (event.id == 'share') {
-        ToastAndroid.show('即将到来', ToastAndroid.SHORT);
+        ToastAndroid.show('即将到来', ToastAndroid.SHORT)
       }
     }
   }
 
   render() {
-    return <WebView source={{ uri: this.props.url }} startInLoadingState style={{ flex: 1 }} />;
+    return <WebView source={{ uri: this.props.url }} startInLoadingState style={{ flex: 1 }} />
   }
 }

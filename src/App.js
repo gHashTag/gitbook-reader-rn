@@ -5,7 +5,6 @@ import { registerScreens } from './screens';
 
 registerScreens(); // this is where you register all of your app's screens
 
-// 内置对象扩展
 String.prototype.replaceAll = function(search, replacement) {
   var target = this;
   return target.replace(new RegExp(search, 'g'), replacement);
@@ -20,13 +19,6 @@ Navigation.startTabBasedApp({
       icon: require('./img/book.png'),
       selectedIcon: require('./img/book.png'), // iOS only
       title: 'Обзор',
-    },
-    {
-      label: 'Поиск',
-      screen: 'app.Search', // this is a registered name for a screen
-      icon: require('./img/search.png'),
-      selectedIcon: require('./img/search.png'), // iOS only
-      title: 'Поиск',
     },
     {
       label: 'Скачать',

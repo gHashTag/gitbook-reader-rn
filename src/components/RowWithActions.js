@@ -1,18 +1,18 @@
-import React, { Component } from 'react';
-import { StyleSheet, View, Image, Text, Animated, TouchableOpacity, Dimensions, Slider } from 'react-native';
-import Interactable from 'react-native-interactable';
+import React, { Component } from 'react'
+import { StyleSheet, View, Image, Text, Animated, TouchableOpacity, Dimensions, Slider } from 'react-native'
+import Interactable from 'react-native-interactable'
 
-const Screen = Dimensions.get('window');
+const Screen = Dimensions.get('window')
 
 export default class Row extends Component {
   constructor(props) {
-    super(props);
-    this._deltaX = new Animated.Value(0);
+    super(props)
+    this._deltaX = new Animated.Value(0)
   }
 
   _trash = () => {
-    this.props.onTrash && this.props.onTrash();
-  };
+    this.props.onTrash && this.props.onTrash()
+  }
 
   render() {
     return (
@@ -48,7 +48,7 @@ export default class Row extends Component {
           {this.props.children}
         </Interactable.View>
       </View>
-    );
+    )
   }
 }
 
@@ -68,4 +68,4 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
   },
-});
+})

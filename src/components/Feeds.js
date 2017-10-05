@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 import {
   View,
   ActivityIndicator,
@@ -8,13 +8,13 @@ import {
   StatusBar,
   FlatList,
   InteractionManager,
-} from 'react-native';
+} from 'react-native'
 
-import { px2dp, SCREEN_WIDTH } from '../utils/';
+import { px2dp, SCREEN_WIDTH } from '../utils/'
 
 export default class Feeds extends React.Component {
   constructor(props) {
-    super(props);
+    super(props)
 
     this.state = {
       data: [],
@@ -23,33 +23,33 @@ export default class Feeds extends React.Component {
       seed: 1,
       error: null,
       refreshing: false,
-    };
+    }
   }
 
   componentDidMount() {
-    this._fetchData();
+    this._fetchData()
   }
 
   removeOne = predicate => {
     const newData = this.state.data.filter((item, index) => {
-      return !predicate(item);
-    });
+      return !predicate(item)
+    })
 
     this.setState({
       data: newData,
-    });
-  };
+    })
+  }
 
   refresh = () => {
-    // this.flatList && this.flatList.scrollToIndex({ viewPosition: 0.5, index: 0 });
-    this._handleRefresh();
-  };
+    // this.flatList && this.flatList.scrollToIndex({ viewPosition: 0.5, index: 0 })
+    this._handleRefresh()
+  }
 
   _fetchData = () => {
     InteractionManager.runAfterInteractions(() => {
-      this.setState({ loading: true });
+      this.setState({ loading: true })
 
-      const { page } = this.state;
+      const { page } = this.state
 
       // fetchData(page: number): {list: []}
       // page start from 0
@@ -58,13 +58,13 @@ export default class Feeds extends React.Component {
           data: page === 0 ? res.list : [...this.state.data, ...res.list],
           loading: false,
           refreshing: false,
-        });
-      });
-    });
-  };
+        })
+      })
+    })
+  }
 
   _renderFooter = () => {
-    if (!this.state.loading) return null;
+    if (!this.state.loading) return null
 
     return (
       <View
@@ -76,8 +76,8 @@ export default class Feeds extends React.Component {
       >
         <ActivityIndicator animating size="large" />
       </View>
-    );
-  };
+    )
+  }
 
   _handleRefresh = () => {
     this.setState(
@@ -86,10 +86,10 @@ export default class Feeds extends React.Component {
         refreshing: true,
       },
       () => {
-        this._fetchData();
+        this._fetchData()
       }
-    );
-  };
+    )
+  }
 
   _loadMore = () => {
     this.setState(
@@ -97,14 +97,14 @@ export default class Feeds extends React.Component {
         page: this.state.page + 1,
       },
       () => {
-        this._fetchData();
+        this._fetchData()
       }
-    );
-  };
+    )
+  }
 
   _renderItemSeparator = () => {
-    return <View style={styles.itemSeparator} />;
-  };
+    return <View style={styles.itemSeparator} />
+  }
 
   render() {
     if (!this.state.loading && this.state.data.length === 0) {
@@ -112,7 +112,7 @@ export default class Feeds extends React.Component {
         <View style={styles.noContent}>
           <Text style={{ fontStyle: 'italic' }}>NO DATA</Text>
         </View>
-      );
+      )
     }
 
     return (
@@ -130,7 +130,7 @@ export default class Feeds extends React.Component {
           getItemLayout={this.props.getItemLayout}
         />
       </View>
-    );
+    )
   }
 }
 
@@ -159,4 +159,4 @@ const styles = StyleSheet.create({
     borderBottomColor: '#e9e9e9',
     // elevation: 5,
   },
-});
+})

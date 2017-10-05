@@ -37,7 +37,7 @@ export default class Home extends React.Component {
         book: item,
       }, // Object that will be passed as props to the pushed screen (optional)
       animated: true, // does the push have transition animation or does it happen immediately (optional)
-      backButtonTitle: '返回', // override the back button title (optional)
+      backButtonTitle: 'Назад', // override the back button title (optional)
       backButtonHidden: false, // hide the back button altogether (optional)
       navigatorStyle: {
         // navBarHideOnScroll: true,

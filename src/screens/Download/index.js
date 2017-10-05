@@ -1,12 +1,12 @@
-import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import React from 'react'
+import { View, Text, StyleSheet } from 'react-native'
 
-import { getDownloadItemsAsync, deleteOneDownloadItem } from '../../data/dataBase';
-import Feeds from '../../components/Feeds';
-import Book from './Book';
-import { px2dp } from '../../utils';
+import { getDownloadItemsAsync, deleteOneDownloadItem } from '../../data/dataBase'
+import Feeds from '../../components/Feeds'
+import Book from './Book'
+import { px2dp } from '../../utils'
 
-const ITEM_HEIGHT = px2dp(380);
+const ITEM_HEIGHT = px2dp(380)
 
 export default class Download extends React.PureComponent {
   static navigatorStyle = {
@@ -20,23 +20,23 @@ export default class Download extends React.PureComponent {
 
     // iOS only
     statusBarHideWithNavBar: true,
-  };
+  }
 
   constructor(props) {
-    super(props);
+    super(props)
 
-    this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
+    this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this))
   }
 
   onNavigatorEvent(event) {
     if (event.id == 'bottomTabSelected') {
-      this.feeds.refresh();
+      this.feeds.refresh()
     }
   }
 
   _getItemLayout = (data, index) => {
-    return { length: ITEM_HEIGHT, offset: ITEM_HEIGHT * index, index };
-  };
+    return { length: ITEM_HEIGHT, offset: ITEM_HEIGHT * index, index }
+  }
 
   _readLocal = item => {
     this.props.navigator.push({
@@ -46,13 +46,13 @@ export default class Download extends React.PureComponent {
         bookId: item.bookId,
       }, // Object that will be passed as props to the pushed screen (optional)
       animated: true, // does the push have transition animation or does it happen immediately (optional)
-    });
-  };
+    })
+  }
 
   _deleteOneItem = bookId => {
-    this.feeds.removeOne(item => item.bookId === bookId);
-    deleteOneDownloadItem(bookId);
-  };
+    this.feeds.removeOne(item => item.bookId === bookId)
+    deleteOneDownloadItem(bookId)
+  }
 
   _renderItem = ({ item }) => {
     return (
@@ -62,8 +62,8 @@ export default class Download extends React.PureComponent {
         {...item}
         key={item.bookId}
       />
-    );
-  };
+    )
+  }
 
   render() {
     return (
@@ -75,6 +75,6 @@ export default class Download extends React.PureComponent {
         fetchData={getDownloadItemsAsync}
         keyExtractor={item => item.bookId}
       />
-    );
+    )
   }
 }

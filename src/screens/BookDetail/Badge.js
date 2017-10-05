@@ -1,25 +1,25 @@
-import React from 'react';
-import { Image, ScrollView, View, Text, StyleSheet, TouchableNativeFeedback } from 'react-native';
-import moment from 'moment';
+import React from 'react'
+import { Image, ScrollView, View, Text, StyleSheet, TouchableNativeFeedback } from 'react-native'
+import moment from 'moment'
 
-import { px2dp, SCREEN_WIDTH } from '../../utils';
+import { px2dp, SCREEN_WIDTH } from '../../utils'
 
 export default class BookDetail extends React.PureComponent {
   render() {
-    const { icon, title, value } = this.props;
+    const { icon, title, value } = this.props
 
     return (
       <View style={styles.label}>
         <View style={styles.keyWrapper}>
           <Image style={styles.icon} source={icon} />
-          <Text style={{ color: '#000' }}>{title}</Text>
+          <Text style={{ fontFamily: 'AppleSDGothicNeo-Light', color: '#000' }}>{title}</Text>
         </View>
 
         <View style={styles.valueWrapper}>
           <Text style={styles.description}>{value}</Text>
         </View>
       </View>
-    );
+    )
   }
 }
 
@@ -53,4 +53,4 @@ const styles = StyleSheet.create({
     height: 16,
     width: 16,
   },
-});
+})

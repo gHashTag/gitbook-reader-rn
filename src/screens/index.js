@@ -7,8 +7,6 @@ import CoverHeader from './BookDetail/CoverHeader';
 import More from './More';
 import Reader from './Reader';
 import Download from './Download';
-import Search from './Search';
-import Camera from './Camera';
 
 // register all screens of the app (including internal ones)
 export function registerScreens() {
@@ -19,6 +17,4 @@ export function registerScreens() {
   Navigation.registerComponent('app.More', () => More);
   Navigation.registerComponent('app.Reader', () => Reader);
   Navigation.registerComponent('app.Download', () => Download);
-  Navigation.registerComponent('app.Search', () => Search);
-  Navigation.registerComponent('app.Camera', () => Camera);
 }

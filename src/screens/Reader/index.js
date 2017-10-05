@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 import {
   View,
   Text,
@@ -10,46 +10,46 @@ import {
   TouchableOpacity,
   Modal,
   BackHandler,
-} from 'react-native';
+} from 'react-native'
 
-import RNFS from 'react-native-fs';
-import fastXmlParser from 'fast-xml-parser';
-import Interactable from 'react-native-interactable';
+import RNFS from 'react-native-fs'
+import fastXmlParser from 'fast-xml-parser'
+import Interactable from 'react-native-interactable'
 
-import { getReadProgress, saveReadProgress } from '../../data/dataBase';
-import { px2dp, SCREEN_HEIGHT, SCREEN_WIDTH } from '../../utils';
-import { getDirFromBookId } from '../../data/bookFiles';
-import TOC from './TOC';
+import { getReadProgress, saveReadProgress } from '../../data/dataBase'
+import { px2dp, SCREEN_HEIGHT, SCREEN_WIDTH } from '../../utils'
+import { getDirFromBookId } from '../../data/bookFiles'
+import TOC from './TOC'
 
-const AnimatedToc = Animated.createAnimatedComponent(TOC);
+const AnimatedToc = Animated.createAnimatedComponent(TOC)
 
-const SideMenuWidth = SCREEN_WIDTH * 4 / 5;
-const RemainingWidth = SCREEN_WIDTH - SideMenuWidth;
+const SideMenuWidth = SCREEN_WIDTH * 4 / 5
+const RemainingWidth = SCREEN_WIDTH - SideMenuWidth
 
 const getInjectedScript = initPosition => `
 function ready(fn) {
   if (document.readyState != 'loading'){
-    fn();
+    fn()
   } else if (document.addEventListener) {
-    document.addEventListener('DOMContentLoaded', fn);
+    document.addEventListener('DOMContentLoaded', fn)
   } else {
     document.attachEvent('onreadystatechange', function() {
       if (document.readyState != 'loading')
-        fn();
-    });
+        fn()
+    })
   }
 }
 
 ready(function(){
   setTimeout(function(){
-    window.scrollTo(0, ${initPosition});
-  }, 0);
+    window.scrollTo(0, ${initPosition})
+  }, 0)
 
   window.onscroll = function (e) {
-    window.postMessage(window.pageYOffset);
-  };
+    window.postMessage(window.pageYOffset)
+  }
 })
-`;
+`
 
 export default class Empty extends React.PureComponent {
   static navigatorStyle = {
@@ -64,98 +64,98 @@ export default class Empty extends React.PureComponent {
 
     // iOS only
     statusBarHideWithNavBar: true,
-  };
+  }
 
   static navigatorButtons = {
     rightButtons: [],
     leftButtons: [
       {
-        title: 'TOC', // if you want a textual button
+        title: 'Cодержание', // if you want a textual button
         buttonColor: '#fff',
         id: 'sideMenu', // id of the button which will pass to your press event handler. See the section bellow for Android specific button ids
       },
     ],
-  };
+  }
 
   constructor(props) {
-    super(props);
+    super(props)
 
     this.state = {
       content: '',
       toc: [],
-    };
+    }
 
-    this.bookDir = getDirFromBookId(this.props.bookId);
-    this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
+    this.bookDir = getDirFromBookId(this.props.bookId)
+    this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this))
 
-    const progress = getReadProgress(this.props.bookId);
-    this.initalPage = progress.src;
-    this.initalPos = progress.position;
+    const progress = getReadProgress(this.props.bookId)
+    this.initalPage = progress.src
+    this.initalPos = progress.position
 
-    this.readPos = progress.position;
-    this.readPage = progress.src;
-    this.tocIsShown = false;
+    this.readPos = progress.position
+    this.readPage = progress.src
+    this.tocIsShown = false
   }
 
   componentDidMount() {
     RNFS.readFile(`${this.bookDir}/toc.json`).then(content => {
-      const toc = JSON.parse(content);
+      const toc = JSON.parse(content)
 
-      this.setState({ toc });
+      this.setState({ toc })
 
-      this._loadContent(this.initalPage);
-    });
+      this._loadContent(this.initalPage)
+    })
   }
 
   onNavigatorEvent(event) {
     if (event.type == 'NavBarButtonPress') {
       if (event.id == 'sideMenu') {
-        this.interactableView.setVelocity({ x: this.tocIsShown ? -2000 : 2000 });
+        this.interactableView.setVelocity({ x: this.tocIsShown ? -2000 : 2000 })
       }
     }
 
     if (event.id === 'willDisappear') {
       // 保存阅读进度
-      saveReadProgress(this.props.bookId, this.readPage, this.readPos);
+      saveReadProgress(this.props.bookId, this.readPage, this.readPos)
     }
   }
 
   _loadContent = src => {
     // 修改页面样式
-    // todo: 修改字体大小，默认为 font-size: 1.125em;
-    const fixedStyle = ' style="padding: 0 10px; font-size: 1em" ';
-    const fixedMeta = '<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">';
+    // todo: 修改字体大小，默认为 font-size: 1.125em
+    const fixedStyle = ' style="padding: 0 10px font-size: 1em fontFamily: AppleSDGothicNeo-Light" '
+    const fixedMeta = '<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">'
 
     RNFS.readFile(`${this.bookDir}/content/${src}`).then(content => {
       this.setState({
         content: content
           // .replace('<meta content="" name="description">', fixedMeta)
           .replace('<body ', `<body ${fixedStyle} `),
-      });
-    });
-  };
+      })
+    })
+  }
 
   _onTouch = () => {
-    this.interactableView.setVelocity({ x: 2000 });
-  };
+    this.interactableView.setVelocity({ x: 2000 })
+  }
 
   _onNavPress = src => {
-    this.interactableView.setVelocity({ x: -2000 });
-    this._loadContent(src);
-    this.readPage = src;
-  };
+    this.interactableView.setVelocity({ x: -2000 })
+    this._loadContent(src)
+    this.readPage = src
+  }
 
   _onMessage = e => {
-    this.readPos = parseInt(e.nativeEvent.data, 10);
-  };
+    this.readPos = parseInt(e.nativeEvent.data, 10)
+  }
 
   _onSnap = e => {
-    this.tocIsShown = e.nativeEvent.index === 0;
-  };
+    this.tocIsShown = e.nativeEvent.index === 0
+  }
 
   render() {
     if (this.state.toc.length === 0) {
-      return null;
+      return null
     }
 
     return (
@@ -191,7 +191,7 @@ export default class Empty extends React.PureComponent {
         </View>
 
       </View>
-    );
+    )
   }
 }
 
@@ -242,4 +242,4 @@ const styles = StyleSheet.create({
   webView: {
     flex: 1,
   },
-});
+})

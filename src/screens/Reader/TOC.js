@@ -1,55 +1,55 @@
-import React from 'react';
-import { View, Text, StyleSheet, WebView, ScrollView, TouchableHighlight, BackAndroid } from 'react-native';
+import React from 'react'
+import { View, Text, StyleSheet, WebView, ScrollView, TouchableHighlight, BackAndroid } from 'react-native'
 
-import RNFS from 'react-native-fs';
-import fastXmlParser from 'fast-xml-parser';
+import RNFS from 'react-native-fs'
+import fastXmlParser from 'fast-xml-parser'
 
-import { saveReadProgress } from '../../data/dataBase';
-import { px2dp } from '../../utils';
+import { saveReadProgress } from '../../data/dataBase'
+import { px2dp } from '../../utils'
 
 export default class TOC extends React.PureComponent {
   static navigatorStyle = {
     tabBarHidden: false,
     navBarHidden: false,
     statusBarColor: '#3F51B5',
-  };
+  }
 
   constructor(props) {
-    super(props);
+    super(props)
 
     this.state = {
       selectedUrl: props.initSelectedSrc,
-    };
+    }
   }
 
   _onNavItemPress = src => {
     this.setState({
       selectedUrl: src,
-    });
+    })
 
-    this.props.onNavPress && this.props.onNavPress(src);
-  };
+    this.props.onNavPress && this.props.onNavPress(src)
+  }
 
   _renderLevels = (item, level) => {
-    let subItems = null;
+    let subItems = null
 
     if (item.navPoint) {
       if (Array.isArray(item.navPoint)) {
         subItems = item.navPoint.map(subItem => {
-          return this._renderLevels(subItem, level + 1);
-        });
+          return this._renderLevels(subItem, level + 1)
+        })
       } else {
-        subItems = this._renderLevels(item.navPoint, level + 1);
+        subItems = this._renderLevels(item.navPoint, level + 1)
       }
     }
 
-    const isSelected = this.state.selectedUrl === item.content._src;
-    let textColor = '#000';
+    const isSelected = this.state.selectedUrl === item.content._src
+    let textColor = '#000'
 
     if (isSelected) {
-      textColor = '#3F51B5';
+      textColor = '#3F51B5'
     } else if (level > 0) {
-      textColor = '#000000B3';
+      textColor = '#000000B3'
     }
 
     return (
@@ -63,19 +63,19 @@ export default class TOC extends React.PureComponent {
           {subItems}
         </View>
       </TouchableHighlight>
-    );
-  };
+    )
+  }
 
   render() {
     return (
       <View style={this.props.style} pointerEvents="box-none">
         <ScrollView>
           {this.props.toc.map(item => {
-            return this._renderLevels(item, 0);
+            return this._renderLevels(item, 0)
           })}
         </ScrollView>
       </View>
-    );
+    )
   }
 }
 
@@ -97,4 +97,4 @@ const styles = StyleSheet.create({
     color: '#000',
     fontSize: px2dp(40),
   },
-});
+})
